@@ -31,6 +31,10 @@ class CreateCardsTable extends Migration
             $table->tinyInteger('status')->default(0)->comment('0:下线 1:上线');
             $table->text('extend')->nullable(true)->comment('扩展字段');
             $table->timestamps();
+
+            $table->index(['fk_group_id']);
+            $table->index(['status']);
+            $table->index(['status', 'fk_group_id']);
         });
     }
 

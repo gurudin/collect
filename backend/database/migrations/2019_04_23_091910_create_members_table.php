@@ -28,6 +28,8 @@ class CreateMembersTable extends Migration
             $table->integer('base_draw')->nullable(false)->comment('基本抽奖次数');
             $table->tinyInteger('status')->default(1)->nullable(false)->comment('状态 0:禁止使用 1:正常');
             $table->timestamps();
+
+            $table->index(['status']);
         });
     }
 
