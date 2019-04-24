@@ -9,7 +9,8 @@ return [
             'badge' => '',
             'open'  => false,
             'child' => [
-                ['label' => 'Recomment', 'href' => '/admin.cms/recomment/list'],
+                ['label' => 'Card Group', 'href' => '/admin.cms/recomment/list'],
+                ['label' => 'Cards', 'href' => '/admin.cms/recomment/list'],
             ]
         ],
     ]
