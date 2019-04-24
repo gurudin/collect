@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'Admin\SiteController@index');
+
+// Admin
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin.cms'], function () {
+    Auth::routes();
+    Route::match(['get', 'post'], '/', 'SiteController@index')->name('admin.home');
 });
