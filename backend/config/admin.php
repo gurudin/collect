@@ -3,8 +3,8 @@ return [
     'pageSize' => 20,
     'nav' => [
         [
-            'icon' => 'fas fa-sitemap',
-            'label' => 'Site',
+            'icon' => 'fas fa-credit-card',
+            'label' => '卡片管理',
             'href'  => '#',
             'badge' => '',
             'open'  => false,

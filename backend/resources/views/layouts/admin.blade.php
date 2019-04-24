@@ -22,7 +22,7 @@
       <nav class="sidebar">
         <div class="sidebar-content">
           <a class="sidebar-brand" href="/admin.cms">
-            <span class="align-middle">AppStack</span>
+            <span class="align-middle text-monospace"><i class="fas fa-home"></i> Discover hero</span>
           </a>
 
           <ul class="sidebar-nav" id="nav" v-cloak>
@@ -82,7 +82,7 @@
           </div>
         </nav>
 
-        <main style="padding: 0.7rem" id="app" v-cloak>
+        <main style="padding: 0.7rem" id="app">
           <div class="container-fluid p-0">
             @yield('content')
           </div>
