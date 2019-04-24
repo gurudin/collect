@@ -94,6 +94,8 @@
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>
+  <script src="{{ asset('js/vue-form.js')}}"></script>
+  <script src="{{ asset('js/vue-tables.js')}}"></script>
   <script>
     Vue.prototype.moment = moment;
     var navs = @json(config('admin.nav'));

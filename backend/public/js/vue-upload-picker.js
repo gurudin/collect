@@ -73,7 +73,7 @@ Vue.component('vue-upload-picker', {
       return this.status == 0 ? this.icon : '<i class="fas fa-spin fa-spinner"></i>';
     },
     valueData() {
-      if (this.value == '') {
+      if (this.value == '' || this.value == null) {
         return '';
       }
 

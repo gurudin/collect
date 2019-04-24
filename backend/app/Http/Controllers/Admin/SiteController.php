@@ -27,11 +27,6 @@ class SiteController extends Controller
      */
     public function upload(Request $request)
     {
-        if ($request->file('file')) {
-            return (new Upload)->upload($request);
-        } else {
-            $result =  (new Upload)->upload($request);
-            return ['uploaded' => true, 'url' => $result['path']];
-        }
+        return (new Upload)->upload($request);
     }
 }
