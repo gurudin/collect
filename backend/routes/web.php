@@ -21,4 +21,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin.cms'], function () {
     Route::match(['get'], '/', 'SiteController@index')->name('admin.home');
     Route::match(['get', 'post'], '/card-group', 'CardGroupController@index')->name('admin.card.group.index');
     Route::match(['get', 'post'], '/card-group/save', 'CardGroupController@save')->name('admin.card.group.save');
+
+    Route::match(['get', 'post'], '/card', 'CardController@index')->name('admin.card.index');
+    Route::match(['get', 'post'], '/card/save', 'CardController@save')->name('admin.card.save');
 });

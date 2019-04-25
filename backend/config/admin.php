@@ -10,7 +10,7 @@ return [
             'open'  => false,
             'child' => [
                 ['label' => 'Card Group', 'href' => '/admin.cms/card-group'],
-                ['label' => 'Cards', 'href' => '/admin.cms/recomment/list'],
+                ['label' => 'Cards', 'href' => '/admin.cms/card'],
             ]
         ],
     ]

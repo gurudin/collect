@@ -13,7 +13,6 @@
     </h4>
     <hr>
 
-    @{{init.m}}
     <vue-form :model='init.m' :options='init.options' ref="form">
     </vue-form>
   </div>

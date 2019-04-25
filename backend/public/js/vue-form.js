@@ -39,7 +39,7 @@ Vue.component('vueForm', {
       /** File */
       + '<vue-upload-picker v-if="isShow(\'file\', opt)" v-model="modelData[key]" :title="opt.dataName" :post-uri="opt.dataUri" data-picker-zise="btn" :icon="opt.dataIcon"/>'
 
-      + '<span class="help-block">{{errors[key]}}</span>'
+      + '<small class="text-danger">{{errors[key]}}</small>'
     + '</div>'
 
     /** Slot */
