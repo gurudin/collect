@@ -27,6 +27,7 @@ class CreateMembersTable extends Migration
             $table->integer('total_draw')->nullable(false)->comment('单日最大抽奖次数');
             $table->integer('base_draw')->nullable(false)->comment('基本抽奖次数');
             $table->tinyInteger('status')->default(1)->nullable(false)->comment('状态 0:禁止使用 1:正常');
+            $table->integer('balance')->default(0)->nullable(false)->comment('用户余额，对应碎片数量');
             $table->timestamps();
 
             $table->index(['status']);

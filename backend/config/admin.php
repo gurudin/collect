@@ -3,7 +3,7 @@ return [
     'pageSize' => 20,
     'nav' => [
         [
-            'icon' => 'fas fa-credit-card',
+            'icon'  => 'fas fa-credit-card',
             'label' => '卡片管理',
             'href'  => '#',
             'badge' => '',
@@ -13,5 +13,25 @@ return [
                 ['label' => 'Cards', 'href' => '/admin.cms/card'],
             ]
         ],
+        [
+            'icon'  => 'fas fa-users',
+            'label' => '用户管理',
+            'href'  => '#',
+            'badge' => '',
+            'open'  => false,
+            'child' => [
+                ['label' => 'Users', 'href' => '/admin.cms/members'],
+            ]
+        ],
+        [
+            'icon' => 'fas fa-store',
+            'label' => '交换管理',
+            'href' => '#',
+            'badge' => '',
+            'open' => false,
+            'child' => [
+                ['label' => 'Store', 'href' => '/admin.cms/store'],
+            ]
+        ]
     ]
 ];

@@ -18,6 +18,7 @@ class CreateMemberCardsTable extends Migration
             $table->integer('fk_member_id')->nullable(false);
             $table->integer('fk_card_id')->nullable(false);
             $table->tinyInteger('delete')->default(0)->nullable(false)->comment('是否删除 0:否 1:是');
+            $table->string('delete_remark')->comment('删除原因');
             $table->timestamps();
 
             $table->index(['fk_member_id', 'delete']);

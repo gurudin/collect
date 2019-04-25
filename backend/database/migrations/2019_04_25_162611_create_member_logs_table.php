@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMemberDrawLogsTable extends Migration
+class CreateMemberLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateMemberDrawLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('member_draw_logs', function (Blueprint $table) {
+        Schema::create('member_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('fk_member_id')->nullable(false);
-            $table->integer('fk_card_id')->default(0)->nullable(false)->comment('无卡片为0');
-            $table->string('source', 50)->nullable(false)->comment('来源 base:基本抽奖 ad:广告 share:分享 login:整点登陆');
+            $table->tinyInteger('log_type')->nullable(false)->comment('类别 1:抽取卡片 2:分享 3:广告 4:分解卡片 5:获取碎片 6:交换物品 7:整点登陆');
+            /**
+             * 扩展字段格式 json
+             */
+            $table->text('extend')->nullable(true)->comment('扩展字段');
             $table->timestamp('created_at')->nullable(false);
-
+            
             $table->index(['fk_member_id']);
-            $table->index(['fk_card_id']);
-            $table->index(['fk_card_id', 'created_at']);
             $table->index(['fk_member_id', 'created_at']);
 
             $table->engine = 'MyISAM';
@@ -36,6 +37,6 @@ class CreateMemberDrawLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('member_draw_logs');
+        Schema::dropIfExists('member_logs');
     }
 }
