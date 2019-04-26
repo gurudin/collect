@@ -78,8 +78,9 @@ Vue.component('vueTables', {
                         + '<button type="button" @click="toggle(opt, settings[key].options[1].value, key)" class="btn" :class="getValue(opt, key, inx) == settings[key].options[1].value ? \'btn-\' + settings[key].options[1].checked : \'btn-secondary\'">{{settings[key].options[1].label}}</button>'
                       + '</div>'
                     + '</span>'
+                    + '<span v-else-if="settings[key].type == \'slot\'"><slot :name="key"></slot></span>'
                     + '<span v-else-if="settings[key].type == \'action\'">'
-                      + '<button v-for="(value, k) in settings[key].actions" :disabled="value.disabled == \'true\' ? true : false" @click="action(opt, k, inx)" class="btn btn-xs" :class="value.class"><i :class="value.icon"></i>{{value.text}}</button>'
+                      + '<button v-for="(value, k) in settings[key].actions" :disabled="value.disabled == \'true\' ? true : false" @click="action($event, opt, k, inx)" class="btn btn-xs mr-1" :class="value.class"><i :class="value.icon"></i>{{value.text}}</button>'
                     + '</span>'
                   + '</td>'
                 + '</tr>'
@@ -108,7 +109,7 @@ Vue.component('vueTables', {
         return true;
       }
 
-      return this.settings[key].type == 'toggle-button' || this.settings[key].type == 'action' ? false : true;
+      return ['toggle-button', 'action', 'slot'].indexOf(this.settings[key].type) > -1 ? false : true;
     },
     getValue(item, key, inx) {
       var value = '';
@@ -212,8 +213,8 @@ Vue.component('vueTables', {
       
       this.settings[key].func({item: item, key: key, value: value});
     },
-    action(item, key, inx) {
-      this.settings.action.actions[key].func({item: item, type: key, inx: inx});
+    action(event, item, key, inx) {
+      this.settings.action.actions[key].func({event: event, item: item, type: key, inx: inx});
     },
   },
   created() {

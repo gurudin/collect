@@ -6,7 +6,7 @@
 @section('content')
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title mb-1">Create <small class="text-muted">(card group)</small>
+    <h4 class="card-title mb-1">{{isset($m['id']) ? 'Update' : 'Create'}} <small class="text-muted">(card group)</small>
       <a href="{{route('admin.card.index')}}" class="btn btn-light float-right">
         <i class="fas fa-arrow-left"></i> Back
       </a>
