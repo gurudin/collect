@@ -6,7 +6,7 @@
 @section('content')
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title mb-1">{{isset($m['id']) ? 'Update' : 'Create'}} <small class="text-muted">(store)</small>
+    <h4 class="card-title mb-1">{{isset($m['id']) ? '修改' : '添加'}} <small class="text-muted">(交换)</small>
       <a href="{{route('admin.store.index')}}" class="btn btn-light float-right">
         <i class="fas fa-arrow-left"></i> Back
       </a>

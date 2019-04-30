@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Members;
+use App\Models\MemberLogs;
+use App\Models\Accounts;
 
 class MembersController extends Controller
 {
@@ -31,7 +33,7 @@ class MembersController extends Controller
             if ($search['status'] != '') {
                 $where[] = ['status', '=', $search['status']];
             }
-            
+
             $query = Members::where($where);
             $query = $search['order'] == ''
                 ? $query->orderBy('id', 'desc')
@@ -60,5 +62,35 @@ class MembersController extends Controller
                 ? ['status' => true]
                 : ['status' => false, 'msg' => 'failed to update'];
         }
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function action(Request $request, string $action, int $id)
+    {
+        $member = Members::find($id);
+
+        if ($action == 'logs') {
+            $result = MemberLogs::where(['fk_member_id' => $id])
+                ->orderBy('id', 'desc')
+                ->paginate(config('admin.pageSize'));
+        }
+
+        if ($action == 'accounts') {
+            $result = Accounts::where(['fk_member_id' => $id])
+                ->orderBy('id', 'desc')
+                ->paginate(config('admin.pageSize'));
+        }
+        
+        return view('admin.member.action', compact(
+            'result',
+            'action',
+            'member'
+        ));
     }
 }

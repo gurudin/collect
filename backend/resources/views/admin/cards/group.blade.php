@@ -6,9 +6,9 @@
 @section('content')
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title mb-1">Cards group 
+    <h4 class="card-title mb-1">卡片组 
       <a href="{{route('admin.card.group.save')}}" class="btn btn-outline-success float-right">
-        <i class="fas fa-file-signature"></i> Create
+        <i class="fas fa-file-signature"></i> 添加
       </a>
     </h4>
     <br>

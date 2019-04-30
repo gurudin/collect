@@ -29,4 +29,5 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin.cms'], function () {
     Route::match(['get', 'post'], '/store/save', 'StoreController@save')->name('admin.store.save');
 
     Route::match(['get', 'post'], '/member', 'MembersController@index')->name('admin.member.index');
+    Route::match(['get'], '/member/{action?}/{id?}', 'MembersController@action')->name('admin.member.action');
 });

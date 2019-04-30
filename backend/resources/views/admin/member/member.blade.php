@@ -6,7 +6,7 @@
 @section('content')
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title mb-1">Members</h4>
+    <h4 class="card-title mb-1">用户</h4>
     <br>
 
     <form class="form-inline mb-1 text-muted">
@@ -147,10 +147,16 @@ const vm = new Vue({
       });
     },
     logs(obj) {
-      console.log(obj);
+      let url = new URL("{{route('admin.member.action')}}").href;
+      url += '/logs/' + obj.item.id;
+
+      window.location = url;
     },
     accounts(obj) {
-      console.log(obj);
+      let url = new URL("{{route('admin.member.action')}}").href;
+      url += '/accounts/' + obj.item.id;
+
+      window.location = url;
     },
   },
 });

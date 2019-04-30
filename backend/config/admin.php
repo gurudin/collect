@@ -1,6 +1,13 @@
 <?php
 return [
+    /**
+     * 默认分页
+     */
     'pageSize' => 20,
+
+    /**
+     * 菜单
+     */
     'nav' => [
         [
             'icon'  => 'fas fa-credit-card',
@@ -34,9 +41,26 @@ return [
             ]
         ]
     ],
+
+    /**
+     * 性别默认头像 0:未知 1:男 2:女
+     */
     'avatar' => [
         '/storage/avatar/default.png',
         '/storage/avatar/male.png',
         '/storage/avatar/female.png',
-    ]
+    ],
+
+    /**
+     * 日志类型
+     */
+    'log_type' => [
+        '1' => '抽取卡片',
+        '2' => '分享',
+        '3' => '广告',
+        '4' => '分解卡片',
+        '5' => '获取碎片',
+        '6' => '物品交换',
+        '7' => '整点登陆',
+    ],
 ];
