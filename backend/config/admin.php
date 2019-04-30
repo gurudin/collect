@@ -16,8 +16,8 @@ return [
             'badge' => '',
             'open'  => false,
             'child' => [
-                ['label' => 'Card Group', 'href' => '/admin.cms/card-group'],
-                ['label' => 'Cards', 'href' => '/admin.cms/card'],
+                ['label' => '卡片组', 'href' => '/admin.cms/card-group'],
+                ['label' => '卡片列表', 'href' => '/admin.cms/card'],
             ]
         ],
         [
@@ -27,7 +27,7 @@ return [
             'badge' => '',
             'open'  => false,
             'child' => [
-                ['label' => 'Users', 'href' => '/admin.cms/member'],
+                ['label' => '用户列表', 'href' => '/admin.cms/member'],
             ]
         ],
         [
@@ -37,7 +37,7 @@ return [
             'badge' => '',
             'open' => false,
             'child' => [
-                ['label' => 'Store', 'href' => '/admin.cms/store'],
+                ['label' => '交换列表', 'href' => '/admin.cms/store'],
             ]
         ]
     ],
