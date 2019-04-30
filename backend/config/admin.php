@@ -20,7 +20,7 @@ return [
             'badge' => '',
             'open'  => false,
             'child' => [
-                ['label' => 'Users', 'href' => '/admin.cms/members'],
+                ['label' => 'Users', 'href' => '/admin.cms/member'],
             ]
         ],
         [
@@ -33,5 +33,10 @@ return [
                 ['label' => 'Store', 'href' => '/admin.cms/store'],
             ]
         ]
+    ],
+    'avatar' => [
+        '/storage/avatar/default.png',
+        '/storage/avatar/male.png',
+        '/storage/avatar/female.png',
     ]
 ];
