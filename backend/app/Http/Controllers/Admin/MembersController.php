@@ -73,16 +73,42 @@ class MembersController extends Controller
      */
     public function action(Request $request, string $action, int $id)
     {
+        $search_key = ['date' => [], 'type' => $request->get('type', '')];
+
         $member = Members::find($id);
 
+        $where = [];
+        $where[] = ['fk_member_id', '=', $id];
+        if ($request->get('start', '') != '' && $request->get('end', '') != '') {
+            $where[] = [
+                'created_at',
+                '>=',
+                $request->get('start') . ' 00:00:00'
+            ];
+            $where[] = [
+                'created_at',
+                '<=',
+                $request->get('end') . ' 23:59:59'
+            ];
+            $search_key['date'] = [$request->get('start'), $request->get('end')];
+        }
+
         if ($action == 'logs') {
-            $result = MemberLogs::where(['fk_member_id' => $id])
+            if ($search_key['type'] != '') {
+                $where[] = ['log_type', '=', $search_key['type']];
+            }
+            $result = MemberLogs::where($where)
                 ->orderBy('id', 'desc')
                 ->paginate(config('admin.pageSize'));
         }
 
         if ($action == 'accounts') {
-            $result = Accounts::where(['fk_member_id' => $id])
+            if ($search_key['type'] != '') {
+                $where[] = $search_key['type'] == 1
+                    ? ['income', '>', 0]
+                    : ['income', '<', 0];
+            }
+            $result = Accounts::where($where)
                 ->orderBy('id', 'desc')
                 ->paginate(config('admin.pageSize'));
         }
@@ -90,7 +116,8 @@ class MembersController extends Controller
         return view('admin.member.action', compact(
             'result',
             'action',
-            'member'
+            'member',
+            'search_key'
         ));
     }
 }

@@ -23,6 +23,23 @@
         <vue-datepicker-local v-model="searchKey.date" clearable></vue-datepicker-local>
       </div>
 
+      <div class="form-group ml-1" v-if="action == 'logs'">
+        <label>类别：</label>
+        <select class="form-control form-control-sm" v-model="searchKey.type">
+          <option value="">全部</option>
+          <option v-for="(item,inx) in init.logs.settings['log_type'].options" :value="inx">@{{item}}</option>
+        </select>
+      </div>
+
+      <div class="form-group ml-1" v-if="action == 'accounts'">
+        <label>类别：</label>
+        <select class="form-control form-control-sm" v-model="searchKey.type">
+          <option value="">全部</option>
+          <option value="1">收入</option>
+          <option value="2">支出</option>
+        </select>
+      </div>
+
       <button type="button" class="btn btn-primary btn-sm ml-1" @click="search"><i class="fas fa-search"></i> 检索</button>
     </form>
 
@@ -85,21 +102,23 @@ const vm = new Vue({
         },
         options: @json($result).data,
       },
-      searchKey: {
-        date: [],
-      },
+      searchKey: @json($search_key),
     };
   },
   methods: {
     search(event) {
+      $(event.currentTarget).loading('loading...');
       let fullUrl = new URL("{{URL::full()}}");
       let url = new URL(fullUrl.origin + fullUrl.pathname);
       if (this.searchKey.date.length == 2) {
         url.searchParams.append('start', moment(this.searchKey.date[0]).format('YYYY-MM-DD'));
         url.searchParams.append('end', moment(this.searchKey.date[1]).format('YYYY-MM-DD'));
       }
+      if (this.searchKey.type != '') {
+        url.searchParams.append('type', this.searchKey.type);
+      }
       
-      console.log(url);
+      window.location = url;
     },
   },
 });
