@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('css')
+<link href="{{ asset('css/vue-datepicker-local.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -15,6 +16,15 @@
       </a>
     </h5>
     <br>
+
+    <form class="form-inline mb-1 text-muted">
+      <div class="form-group">
+        <label>时间：</label>
+        <vue-datepicker-local v-model="searchKey.date" clearable></vue-datepicker-local>
+      </div>
+
+      <button type="button" class="btn btn-primary btn-sm ml-1" @click="search"><i class="fas fa-search"></i> 检索</button>
+    </form>
 
     {{-- Logs --}}
     <vue-tables
@@ -40,6 +50,7 @@
 @endsection
 
 @section('script')
+<script src="{{asset('js/vue-datepicker-local.js')}}"></script>
 <script>
 const vm = new Vue({
   el: '#app',
@@ -73,62 +84,22 @@ const vm = new Vue({
           }
         },
         options: @json($result).data,
-      }
+      },
+      searchKey: {
+        date: [],
+      },
     };
   },
   methods: {
-    formatDate(obj) {
-      return moment(obj.value).format('YYYY/MM/DD HH:mm');
-    },
-    genderText(obj) {
-      return ['保密', '男', '女'][obj.item.gender];
-    },
-    avatarText(obj) {
-      let avatar = obj.item.avatar;
-      if (avatar == '') {
-        avatar = this.init.avatars[obj.item.gender];
-      }
-
-      return '<a href="' + avatar+ '" target="_blank"><img src="' + avatar + '" width="35" class="rounded"></a>';
-    },
-    searchItem() {
-      let url = new URL("{{route('admin.member.index')}}");
-      for (const key in this.search) {
-        if (this.search[key] != '') {
-          url.searchParams.append(key, this.search[key]);
-        }
+    search(event) {
+      let fullUrl = new URL("{{URL::full()}}");
+      let url = new URL(fullUrl.origin + fullUrl.pathname);
+      if (this.searchKey.date.length == 2) {
+        url.searchParams.append('start', moment(this.searchKey.date[0]).format('YYYY-MM-DD'));
+        url.searchParams.append('end', moment(this.searchKey.date[1]).format('YYYY-MM-DD'));
       }
       
-      window.location = url;
-    },
-    changeStatus(obj) {
-      obj.item[obj.key] = obj.value
-      
-      axios.post("{{route('admin.member.index')}}", {
-        action: 'status',
-        data: {
-          id: obj.item.id,
-          status: obj.value
-        },
-      }).then((resp) => {
-        return resp.data;
-      }).then(function (resp) {
-        if (!resp.status) {
-          alert(resp.msg);
-        }
-      });
-    },
-    logs(obj) {
-      let url = new URL("{{route('admin.member.action')}}").href;
-      url += '/logs/' + obj.item.id;
-
-      window.location = url;
-    },
-    accounts(obj) {
-      let url = new URL("{{route('admin.member.action')}}").href;
-      url += '/accounts/' + obj.item.id;
-
-      window.location = url;
+      console.log(url);
     },
   },
 });
