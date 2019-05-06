@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Members;
 use App\Models\MemberLogs;
 use App\Models\Accounts;
+use App\Models\MemberCards;
 
 class MembersController extends Controller
 {
@@ -73,6 +74,10 @@ class MembersController extends Controller
      */
     public function action(Request $request, string $action, int $id)
     {
+        if ($action == 'cards') {
+            return $this->card($request, $id);
+        }
+
         $search_key = ['date' => [], 'type' => $request->get('type', '')];
 
         $member = Members::find($id);
@@ -118,6 +123,36 @@ class MembersController extends Controller
             'action',
             'member',
             'search_key'
+        ));
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function card(Request $request, int $id)
+    {
+        $member = Members::find($id);
+
+        $cards = MemberCards::where(['fk_member_id' => $id])
+            ->select([
+                'member_cards.id',
+                'member_cards.delete',
+                'member_cards.delete_remark',
+                'member_cards.created_at',
+                'cards.id as card_id',
+                'cards.name as card_name',
+                'cards.cover as card_cover',
+            ])
+            ->leftJoin('cards', 'member_cards.fk_card_id', '=', 'cards.id')
+            ->get();
+
+        return view('admin.member.card', compact(
+            'member',
+            'cards'
         ));
     }
 }

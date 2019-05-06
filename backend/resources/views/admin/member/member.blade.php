@@ -94,6 +94,7 @@ const vm = new Vue({
           'action': {
             type: 'action',
             actions: {
+              'card': {text: '卡片', class: 'btn-info btn-sm', func: this.cards},
               'log': {text: '日志', class: 'btn-info btn-sm', func: this.logs},
               'account': {text: '账务', class: 'btn-info btn-sm', func: this.accounts}
             }
@@ -155,6 +156,12 @@ const vm = new Vue({
     accounts(obj) {
       let url = new URL("{{route('admin.member.action')}}").href;
       url += '/accounts/' + obj.item.id;
+
+      window.location = url;
+    },
+    cards(obj) {
+      let url = new URL("{{route('admin.member.action')}}").href;
+      url += '/cards/' + obj.item.id;
 
       window.location = url;
     },
