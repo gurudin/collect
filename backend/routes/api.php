@@ -15,4 +15,7 @@ use Illuminate\Http\Request;
 
 Route::group(['namespace' => 'Api'], function () {
     Route::get('/cards', 'CardController@cards')->name('api.cards');
+
+    Route::get('/member/cards', 'MemberController@cards')->name('api.member.cards');
+    Route::post('/member/destruct', 'MemberController@destruct')->name('api.member.destruct');
 });
