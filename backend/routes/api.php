@@ -18,4 +18,5 @@ Route::group(['namespace' => 'Api'], function () {
 
     Route::get('/member/cards', 'MemberController@cards')->name('api.member.cards');
     Route::post('/member/destruct', 'MemberController@destruct')->name('api.member.destruct');
+    Route::post('/member/gain', 'MemberController@gainCard')->name('api.member.gain');
 });

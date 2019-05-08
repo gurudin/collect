@@ -51,7 +51,7 @@
     </form>
     <hr>
 
-    <div class="card-deck"
+    <div class="card-deck mb-3"
       v-if="init.cards.length > 0"
       v-for="p in Math.ceil(init.cards.length / 6)">
 
