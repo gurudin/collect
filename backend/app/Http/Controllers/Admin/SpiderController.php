@@ -77,13 +77,13 @@ class SpiderController extends Controller
             $pinyin = new Pinyin('Overtrue\Pinyin\MemoryFileDictLoader');
             $data = $request->post('data');
 
-            if ($data['type'] == 1) {
-                // HTML
-                try {
+            try {
+                if ($data['type'] == 1) {
+                    // HTML
                     $result = QueryList::get($data['url'])
-                    ->rules(json_decode($data['rule'], true))
-                    ->range($data['slice'])
-                    ->queryData();
+                        ->rules(json_decode($data['rule'], true))
+                        ->range($data['slice'])
+                        ->queryData();
                     
                     foreach ($result as &$value) {
                         $tmp = '';
@@ -97,11 +97,64 @@ class SpiderController extends Controller
                     unset($value);
                     
                     return $result;
-                } catch (\Throwable $th) {
-                    return $th;
+                } else {
+                    // JSON
+                    $res = (new Client(['timeout' => 10]))->get($data['url']);
+                    $ret = json_decode($res->getBody(), true);
+
+                    // 获取字段规则
+                    if ($data['filed_rule'] != '') {
+                        $filed_rule = json_decode($data['filed_rule'], true);
+
+                        // 是否是列表
+                        if (isset($filed_rule['item'])) {
+                            foreach (explode(",", $filed_rule['item']) as $filed) {
+                                $ret = $ret[$filed];
+                            }
+                        }
+
+                        $items = [];
+                        foreach ($ret as $k => $v) {
+                            $temp = [];
+                            foreach ($filed_rule as $key => $rule) {
+                                $tmp_v = $v;
+                                if (in_array($key, ['item'])) {
+                                    continue;
+                                }
+
+                                foreach (explode(",", $rule['field']) as $filed) {
+                                    $tmp_v = $tmp_v[$filed];
+                                }
+
+                                if (isset($rule['reg']) && !empty($rule['reg'])) {
+                                    preg_match($rule['reg'], $tmp_v, $match);
+                                    $temp[$key] = $match[1];
+                                } else {
+                                    $temp[$key] = $tmp_v;
+                                }
+                            }
+
+                            $items[] = $temp;
+                        }
+
+                        foreach ($items as &$value) {
+                            $tmp = '';
+                            foreach ($value as $v) {
+                                $tmp .= $pinyin->permalink($v, '') . ' ';
+                                $tmp .= $pinyin->abbr($v) . ' ';
+                            }
+                            
+                            $value['transform'] = $tmp;
+                        }
+                        unset($value);
+
+                        return $items;
+                    }
+
+                    return $ret;
                 }
-            } else {
-                // JSON
+            } catch (\Throwable $th) {
+                return $th;
             }
         }
 
