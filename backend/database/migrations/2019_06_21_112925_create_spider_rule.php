@@ -22,6 +22,7 @@ class CreateSpiderRule extends Migration
             $table->string('slice')->nullable(true)->comment('切片选择器');
             $table->text('rule')->nullable(false)->comment('采集规则');
             $table->text('filed_rule')->nullable(true)->comment('字段采集规则');
+            $table->tinyInteger('enable')->nullable(false)->comment('是否可用 0:否 1:是');
             $table->timestamps();
         });
     }

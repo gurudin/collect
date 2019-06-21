@@ -12,7 +12,7 @@ return [
         [
             'icon'  => 'fas fa-spider',
             'label' => '采集管理',
-            'href'  => '#',
+            'href'  => '/admin.cms/spider',
             'badge' => '',
             'open'  => false,
         ],

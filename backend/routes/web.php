@@ -17,4 +17,7 @@ Route::get('/', 'Admin\SiteController@index');
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin.cms'], function () {
     Auth::routes();
     Route::post('/upload', 'SiteController@upload')->name('admin.upload');
+    
+    Route::match(['get', 'post'], '/spider', 'SpiderController@spider')->name('admin.spider');
+    Route::match(['get', 'post'], '/spider-save', 'SpiderController@spiderSave')->name('admin.spider.save');
 });
